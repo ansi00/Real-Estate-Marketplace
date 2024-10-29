@@ -14,7 +14,11 @@ const userSchema = new  mongoose.Schema({
     password : {
         type : String,
         required : true,
-    }
+    },
+    avatar : {
+        type : String,
+        default : "https://images.app.goo.gl/gvnuZMr2isPQYCeH8",
+    },
 } , {timestamps : true});
 
 const User = mongoose.model('User', userSchema);

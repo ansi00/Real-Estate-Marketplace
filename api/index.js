@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import userRouter from "./routers/user.router.js";
 import signUpRouter from "./routers/auth.route.js";
 import cookieParser from "cookie-parser";
+import listingRouter from './routers/listing.route.js'
 
 dotenv.config();
 
@@ -24,6 +25,8 @@ app.use(cookieParser())
 
 app.use('/api/user', userRouter);
 app.use('/api/auth', signUpRouter);
+app.use('/api/listing', listingRouter)
+
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");

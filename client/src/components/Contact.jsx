@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {Link} from "react-router-dom"
 
 export default function Contact({ listing }) {
   const [landlord, setLandlord] = useState(null);
@@ -27,7 +28,7 @@ export default function Contact({ listing }) {
           <p>
             Contact <span className="font-semibold">{landlord.username}</span>
             for{" "}
-            <span className="font-semibold">{listing.name.toLowercase()}</span>
+            <span className="font-semibold">{listing.name.toLowerCase()}</span>
           </p>
           <textarea
             name="message"

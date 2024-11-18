@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
-import { Navigation } from "swiper/modules";
 import { useSelector } from "react-redux";
+import { Navigation } from "swiper/modules";
 import "swiper/css/bundle";
-import Contact from "../components/Contact";
 import {
   FaBath,
   FaBed,
@@ -15,6 +14,7 @@ import {
   FaParking,
   FaShare,
 } from "react-icons/fa";
+import Contact from "../components/Contact";
 
 export default function Listing() {
   SwiperCore.use([Navigation]);
@@ -23,15 +23,15 @@ export default function Listing() {
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false);
   const [contact, setContact] = useState(false);
-  const { currentUser } = useSelector((state) => state.user);
   const params = useParams();
+  const { currentUser } = useSelector((state) => state.user);
+
   useEffect(() => {
     const fetchListing = async () => {
       try {
         setLoading(true);
         const res = await fetch(`/api/listing/get/${params.listingId}`);
         const data = await res.json();
-
         if (data.success === false) {
           setError(true);
           setLoading(false);
@@ -47,6 +47,7 @@ export default function Listing() {
     };
     fetchListing();
   }, [params.listingId]);
+
   return (
     <main>
       {loading && <p className="text-center my-7 text-2xl">Loading...</p>}
@@ -59,7 +60,7 @@ export default function Listing() {
             {listing.imageUrls.map((url) => (
               <SwiperSlide key={url}>
                 <div
-                  className="h-[550px] "
+                  className="h-[550px]"
                   style={{
                     background: `url(${url}) center no-repeat`,
                     backgroundSize: "cover",
@@ -103,7 +104,7 @@ export default function Listing() {
               </p>
               {listing.offer && (
                 <p className="bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-md">
-                  ${+listing.regularPrice - +listing.discountPrice}
+                  ${+listing.regularPrice - +listing.discountPrice} OFF
                 </p>
               )}
             </div>
@@ -135,12 +136,10 @@ export default function Listing() {
             </ul>
             {currentUser && listing.userRef !== currentUser._id && !contact && (
               <button
-                onClick={() => {
-                  setContact(true);
-                }}
-                className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-90 p-3"
+                onClick={() => setContact(true)}
+                className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3"
               >
-                Contact Landloard
+                Contact landlord
               </button>
             )}
             {contact && <Contact listing={listing} />}
